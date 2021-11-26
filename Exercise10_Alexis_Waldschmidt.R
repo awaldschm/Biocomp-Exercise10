@@ -16,7 +16,7 @@ library("ggplot2")
 #load in the data that I have saved as a text file
 arrests <- read.table("USArrests.txt", sep = " ", header =T)
 
-#make a scatter plot with a trend line
+#make a scatter plot with a trend line and axis labels
 ggplot(data = arrests, 
        aes(x = Murder, y = UrbanPop)) +
   geom_point() +
@@ -37,15 +37,16 @@ ggplot(data = arrests,
 #Load in the data
 data <- read.table("data.txt", header = T, stringsAsFactors = F, sep = ",")
 
-#First graph: barplot of the means
-ggplot(data, aes(x = region, y = observations, fill = as.factor(region))) + #???By "means of the four populations", do you mean means of the observations in each of the four pops?????
+#First graph: barplot of the means with error bars, color coding, and axis labels
+ggplot(data, aes(x = region, y = observations, fill = as.factor(region))) + 
   stat_summary(fun.data = "mean_se", geom = "errorbar", width = 0.5) +
   stat_summary(fun = "mean", geom = "bar") +
   theme_classic() +
   xlab("Region") +
-  ylab("Mean of Observations") #???This still makes no sense to me why we would make a bar graph. If I wanted to show the mean, I would do this code minus the geom_bar(). Is there some logic to this that I am missing?????
+  ylab("Mean of Observations") 
 
-#second graph: scatterplot of the observations (I chose to jitter the plots instead of using an alpha value)
+#second graph: scatterplot of the observations with axis labels and color coding 
+#(I chose to jitter the plots instead of using an alpha value)
 ggplot(data, aes(x = region, y = observations, color = region)) + 
   geom_jitter() +
   theme_classic() +
@@ -57,10 +58,9 @@ ggplot(data, aes(x = region, y = observations, color = region)) +
 #of the means, it appears as though all of the regions' observations are very similar.
 #However, when you look at the scatterplot, it becomes clear that the distributions 
 # and spreads of the observations are quite different from each other, even though the means 
-#are very similar. For example, the west appears to have an equal distribution 
-#across all observations. The east is very similar, but it has less 
+#(as shown in the previous plot) are very similar. For example, the west appears to have 
+#an equal distribution across all observations. The east is very similar, but it has less 
 #observations at both the upper and lower observation values. The north's
 #observations are very concentrated in the middle, and the south's observations
 #are concentrated in two specific and distinct locations. This wide variation in the 
-#data would not have been easily predicted by only analyzing the very 
-#uniform-looking barplot.
+#data would not have been easily predicted by only analyzing the uniform-looking barplot.
